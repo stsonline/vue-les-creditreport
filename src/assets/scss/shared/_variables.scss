@@ -1,0 +1,122 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Jockey+One|Josefin+Sans:300,400&display=swap');
+
+
+// Typography
+$font-family-base:                  "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-size-base:                    1rem;
+
+$font-weight-light:                 300;
+$font-weight-normal:                400;
+$font-weight-bold:                  700;
+
+$primary:                           #2f58b5; /* stylelint-disable-line color-no-hex */
+$secondary:                         #282828; /* stylelint-disable-line color-no-hex */
+$success:                           #4CAF50; /* stylelint-disable-line color-no-hex */
+$danger:                            #dc3545; /* stylelint-disable-line color-no-hex */
+$info:                              #03A9F4; /* stylelint-disable-line color-no-hex */
+
+$white:                             #ffffff; /* stylelint-disable-line color-no-hex */
+$light:                             #e5e6e7; /* stylelint-disable-line color-no-hex */
+$dark:                              #57778C; /* stylelint-disable-line color-no-hex */
+
+// Body
+$body-bg:                           lighten($light, 5%); /* stylelint-disable-line color-no-hex */
+
+$theme-colors: (
+  "light-darken-1":                 darken($light, 10%),
+  "light-lighten-1":                lighten($light, 2%),
+  "light-lighten-2":                lighten($light, 4%),
+  "light-lighten-3":                lighten($light, 6%),
+  "light-lighten-4":                lighten($light, 8%),
+  "light-lighten-5":                lighten($light, 9%),
+  "primary-lighten-1":              lighten($primary, 10%),
+  "primary-lighten-2":              lighten($primary, 20%),
+  "primary-lighten-3":              lighten($primary, 30%),
+  "primary-lighten-4":              lighten($primary, 40%),
+  "primary-lighten-5":              lighten($primary, 50%),
+  "primary-lighten-6":              lighten($primary, 60%),
+  "primary-lighten-7":              lighten($primary, 70%),
+  "primary-darken-1":               darken($primary, 10%),
+  "primary-darken-2":               darken($primary, 20%),
+  "white":                          $white,
+  "body":                           $body-bg
+);
+
+
+// Maps
+//
+// create our own maps that we can extend automatically
+
+/* Button Borders */
+
+$btn-borders: (
+  primary:     darken($primary, 10%),
+  secondary:   darken($secondary, 10%),
+  success:     darken($success, 10%),
+  dark:        darken($dark, 10%),
+  white:       darken($white, 10%)
+);
+
+// Components
+$border-radius:                     .5rem;
+
+
+// Inputs
+$input-padding-y:                   .75rem;
+$input-padding-x:                   .95rem;
+$input-border-width:                .2rem;
+$input-border-color:                $dark; /* stylelint-disable-line color-no-hex */
+$input-font-weight:                 700;
+
+$custom-control-label-color:        $dark;
+
+
+// Selects
+$custom-select-border-radius:       $border-radius;
+
+
+// Buttons: Normal
+$btn-padding-y:                     .75rem;
+$btn-padding-x:                     .75rem;
+$btn-border-width:                  .2rem;
+$btn-border-radius:                 .8rem;
+$btn-font-weight:                   $font-weight-bold;
+
+
+// Buttons: SM
+$btn-padding-y-sm:                  .45rem;
+$btn-padding-x-sm:                  .45rem;
+$btn-font-size-sm:                  .95rem;
+$btn-border-width-sm:               .2rem;
+$btn-border-radius-sm:              .8rem;
+$btn-font-weight-sm:                $font-weight-bold;
+
+
+// Borders
+$border-width:                      .2rem;
+
+
+// Range
+$custom-range-track-height:         1.2rem;
+$custom-range-thumb-width:          2rem;
+$custom-range-track-bg:             lighten(desaturate(adjust-hue($dark, -2), .39), 29.02); /* stylelint-disable-line */
+$custom-range-thumb-border:         .2rem solid $white;
+
+
+// Spinners
+$spinner-width-sm:                  1.25rem;
+$spinner-height-sm:                 $spinner-width-sm;
+$spinner-border-width-sm:           .2em;
+
+
+// Switches
+$custom-switch-indicator-size:      .7rem;
+
+
+// Modals
+$modal-lg:                          760px; /* stylelint-disable-line */
+
+
+// Features
+$enable-responsive-font-sizes:      true;

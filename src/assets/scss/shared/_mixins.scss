@@ -1,0 +1,22 @@
+// Button Borders
+//
+// create custom border colours for our buttons.
+
+@mixin btn-borders {
+  @each $name, $hex in $btn-borders {
+    &-#{$name},
+    &-outline-#{$name} {
+      border-color: $hex;
+
+      // if a white button, let's make svg clear to the user.
+      @if $name == white {
+        &:hover {
+          color: $dark;
+          svg {
+            fill: $dark;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+// Base
+//
+// apply some styling to all buttons
+
+.btn {
+  border-width: .2rem .2rem .4rem .4rem !important; /* stylelint-disable-line declaration-no-important */
+  min-height: 45px; // safari fix
+  @include btn-borders;
+}

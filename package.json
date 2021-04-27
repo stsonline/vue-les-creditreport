@@ -1,20 +1,27 @@
 {
   "name": "vue-les-creditreport",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "author": "STS Commercial",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "package:build": "vue-cli-service build --target wc --name vue-les-creditreport src/components/LesCreditReport.vue",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "bootstrap": "4.6.0",
+    "core-js": "3.11.0",
+    "vue": "2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "4.5.12",
+    "@vue/cli-service": "4.5.12",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "2.6.11",
+    "vue-server-renderer": "2.6.11",
+    "vuepress": "1.8.2"
   }
 }
