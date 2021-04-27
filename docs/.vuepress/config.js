@@ -1,7 +1,7 @@
 const { description } = require('../../package')
 
 module.exports = {
-  base: '',
+  base: '/vue-les-creditreport/',
   title: 'Vue Les Credit Report',
   description: 'Seamlessly integrate our Credit Report modal and browser tab implementation to collect Credit Report sales with ease.',
 
