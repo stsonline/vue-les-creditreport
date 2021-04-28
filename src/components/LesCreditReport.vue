@@ -290,7 +290,6 @@ export default {
 
     disposeModal () {
       this.modal.isShown = false
-      this.modal.generatedUrl = ''
     },
 
 
