@@ -22,9 +22,10 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '/vue-les-creditreport/',
+    repo: 'stsonline/vue-les-creditreport',
     editLinks: false,
     docsDir: '',
+    docsBranch: 'gh-pages',
     editLinkText: '',
     lastUpdated: false,
     nav: [
