@@ -44,7 +44,7 @@
 
               <div class="row my-3">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                  <a @click="disposeModal" :href="modal.generatedUrl" target="_blank" class="btn btn-block btn-success btn-sm mt-auto font-weight-bolder" :class="{ 'disabled': !modal.generatedUrl }" :disabled="!modal.generatedUrl">
+                  <a @click="disposeModal(); dispatchPluginEvent('vuelescreditreport:on:redirect')" :href="modal.generatedUrl" target="_blank" class="btn btn-block btn-success btn-sm mt-auto font-weight-bolder" :class="{ 'disabled': !modal.generatedUrl }" :disabled="!modal.generatedUrl">
                     <div class="row no-gutters">
                       <div class="col d-flex align-items-center justify-content-around">
                         &#128073;
@@ -125,7 +125,7 @@
       </div>
     </div>
 
-    <div class="modal-backdrop fade" :class="{ 'show': modal.isShown }"></div>
+    <div class="modal-backdrop fade" :class="modal.isShown ? 'show' : 'd-none'"></div>
   </div>
 </template>
 
@@ -144,36 +144,11 @@ export default {
       type: String,
       default: 'modal'
     },
-    excludeAffiliates: {
-      type: Array,
+    excludes: {
+      type: String,
       default () {
         return []
       }
-    },
-    tracking: {
-      type: Object,
-      default: () => ({
-        tlp: ''
-      })
-    },
-    applicant: {
-      type: Object,
-      default: () => ({
-        title: '',
-        name: {
-          first: 'john',
-          last: ''
-        },
-        mobile: '',
-        birthday: '',
-        email: '',
-        address: {
-          house: '',
-          street: '',
-          city: '',
-          postcode: ''
-        }
-      })
     }
   },
   data () {
@@ -182,10 +157,66 @@ export default {
         isShown: false,
         isClosable: false,
         generatedUrl: ''
+      },
+      applicant: {
+        title: '',
+        name: {
+          first: '',
+          last: ''
+        },
+        mobile: '',
+        birthday: '',
+        dobDay: '',
+        dobMonth: '',
+        dobYear: '',
+        email: '',
+        address: {
+          house: '',
+          street: '',
+          city: '',
+          postcode: ''
+        },
+        tlp: ''
       }
     }
   },
+  mounted () {
+    this.initEventListeners()
+  },
   methods: {
+
+    /*
+    ** init custom event listeners
+    */
+    initEventListeners () {
+      const self = this
+
+      // submit the application
+      document.addEventListener('vuelescreditreport:submit', this.submitApplication)
+
+      // show the modal
+      document.addEventListener('vuelescreditreport:modal:show', function (evt) {
+        self.modal.isShown = true
+      }, false)
+
+      // hide the modal
+      document.addEventListener('vuelescreditreport:modal:hide', function (evt) {
+        self.modal.isShown = false
+      }, false)
+
+      // set an applicant
+      document.addEventListener('vuelescreditreport:applicant:set', function (evt) {
+        self.applicant = evt.detail
+      }, false)
+    },
+
+
+    /*
+    ** trigger event
+    */
+    dispatchPluginEvent (evtName) {
+      document.dispatchEvent(new Event(evtName))
+    },
 
 
     /*
@@ -195,11 +226,13 @@ export default {
       const endpoint = this.getEndpoint()
 
       if (this.mode == 'modal' && this.enableModal()) {
+        this.dispatchPluginEvent('vuelescreditreport:on:submit')
         this.launchModal(endpoint)
         return
       }
 
-      this.launchLegacy()
+      this.dispatchPluginEvent('vuelescreditreport:on:submit')
+      this.launchLegacy(endpoint)
     },
 
 
@@ -214,17 +247,20 @@ export default {
           last
         },
         mobile,
-        birthday,
+        dobDay,
+        dobMonth,
+        dobYear,
         email,
         address: {
           house,
           street,
           city,
           postcode
-        }
+        },
+        tlp
       } = this.applicant
 
-      const url = `${this.api}?email=${email}&phone=${mobile}&fname=${first}&lname=${last}&dbd=&dbm=&dby=&house_number=${house}&street=${street}&city=${city}&zip=${postcode}&title=${title}&aff_id=&promotion_id=&unique_id=`
+      const url = `${this.api}?email=${email}&phone=${mobile}&fname=${first}&lname=${last}&dbd=${dobDay}&dbm=${dobMonth}&dby=${dobYear}&house_number=${house}&street=${street}&city=${city}&zip=${postcode}&title=${title}&aff_id=${tlp}&promotion_id=&unique_id=`
       return url
     },
 
@@ -238,6 +274,7 @@ export default {
     launchModal (endpoint) {
       this.modal.generatedUrl = endpoint ? endpoint : ''
       this.modal.isShown = true
+      this.dispatchPluginEvent('vuelescreditreport:on:modal:launch')
 
       setTimeout(() => {
         this.modal.isClosable = true
@@ -267,7 +304,10 @@ export default {
       const win = window.open(endpoint, '_blank')
       try {
         if (!win || win.closed || typeof win.closed == 'undefined') {
+          this.dispatchPluginEvent('vuelescreditreport:on:popups:blocked')
           this.launchModal(endpoint)
+        } else {
+          this.dispatchPluginEvent('vuelescreditreport:on:redirect')
         }
       } catch (err) {
         this.launchModal(endpoint)
@@ -282,8 +322,8 @@ export default {
     */
 
     enableModal () {
-      for (const affiliate of this.excludeAffiliates) {
-      	if (this.tracking.tlp.includes(affiliate)) {
+      for (const string of JSON.parse(this.excludes)) {
+      	if (this.applicant.tlp.includes(string)) {
           return false
         }
       }
