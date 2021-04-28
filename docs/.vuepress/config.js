@@ -57,7 +57,9 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 3,
         children: [
-          '/config/'
+          '/config/',
+          '/events/',
+          '/events/listeners'
         ]
       }
     ]

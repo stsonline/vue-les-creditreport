@@ -2,7 +2,7 @@
 
 We've put together these quick examples to help you get up and running.
 
-
+## Quick Start
 
 ```html
 <!DOCTYPE html>
@@ -16,8 +16,9 @@ We've put together these quick examples to help you get up and running.
 
     <!-- Your markup -->
     <vue-les-creditreport
+      mode="modal"
       api="https://example.com/"
-      mode="modal">
+      exclude='["string1". "string2"]'>
     </vue-les-creditreport>
 
     <!-- Link to plugin -->
@@ -25,3 +26,49 @@ We've put together these quick examples to help you get up and running.
   </body>
 </html>
 ```
+
+### Submitting a Credit Report application
+
+Using our events, you'll need to build into your web application a way of triggering an application, there are several ways that you can do this, here's some pointers:
+
+- Provide some form of form that collects the required fields to set an application, attach a `name` attribute to each field
+- Use Javascript to target these fields and get their value to pass into our event.
+- Then submit an application based on whether a checkbox is checked or not _(this provides the customer with a way of opting in)_
+
+```javascript
+function launchCreditReport (applicantDetails = {}) {
+  const isLaunchable = document.querySelector('input[name="creditOptIn"]')
+
+  // customer never opted in
+  if (!isLaunchable.checked) {
+    return
+  }
+
+  // set the applicant & submit form
+  try {
+    document.dispatchEvent(new CustomEvent('vuelescreditreport:applicant:set', {
+      detail: {
+        title: applicantDetails.AppTitle,
+        name: {
+          first: applicantDetails.AppFirstName,
+          last: applicantDetails.AppLastName
+        },
+        mobile: applicantDetails.AppMobilePhone,
+        dobDay: applicantDetails.AppDOBDay,
+        dobMonth: applicantDetails.AppDOBMonth,
+        dobYear: applicantDetails.AppDOBYear,
+        email: applicantDetails.AppEmail,
+        address: {
+          house: applicantDetails.AppHouseNumber,
+          street: applicantDetails.AppStreet,
+          city: applicantDetails.AppTown,
+          postcode: applicantDetails.AppPostCode
+        }
+      }
+    }))
+    document.dispatchEvent(new Event('vuelescreditreport:submit'))
+  } catch (err) {
+    // handle your error
+  }
+}
+``
