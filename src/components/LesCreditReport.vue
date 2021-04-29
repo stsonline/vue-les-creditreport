@@ -138,7 +138,7 @@ export default {
   props: {
     api: {
       type: String,
-      default: ''
+      default: 'https://rdrt.org/credit/creditreport'
     },
     mode: {
       type: String,

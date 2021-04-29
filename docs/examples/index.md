@@ -22,6 +22,7 @@ We've put together these quick examples to help you get up and running.
     </vue-les-creditreport>
 
     <!-- Link to plugin -->
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/stsonline/vue-les-creditreport@1.0/dist/vue-les-creditreport.min.js"></script>
   </body>
 </html>
@@ -63,7 +64,8 @@ function launchCreditReport (applicantDetails = {}) {
           street: applicantDetails.AppStreet,
           city: applicantDetails.AppTown,
           postcode: applicantDetails.AppPostCode
-        }
+        },
+        tlp: applicantDetails.tlp_aff_id
       }
     }))
     document.dispatchEvent(new Event('vuelescreditreport:submit'))
