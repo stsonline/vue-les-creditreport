@@ -63,7 +63,8 @@ function launchCreditReport (applicantDetails = {}) {
           street: applicantDetails.AppStreet,
           city: applicantDetails.AppTown,
           postcode: applicantDetails.AppPostCode
-        }
+        },
+        tlp: applicantDetails.tlp_aff_id
       }
     }))
     document.dispatchEvent(new Event('vuelescreditreport:submit'))
