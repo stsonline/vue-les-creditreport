@@ -40,6 +40,8 @@ npm run serve
 
 You can build the project as a [web component](https://cli.vuejs.org/guide/build-targets.html#web-component) by running:
 
+> :warning: If you require the web component to be installed with inline vue, clone the project and run `npm run package:build:inline` and copy the appropriate js version to your project. Don't commit these changes to the repo.
+
 ```bash
 # our custom command to build the project
 npm run package:build
