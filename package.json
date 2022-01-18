@@ -1,12 +1,13 @@
 {
   "name": "vue-les-creditreport",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "STS Commercial",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "package:build": "vue-cli-service build --target wc --name vue-les-creditreport src/components/LesCreditReport.vue",
+    "package:build:inline": "vue-cli-service build --target wc --inline-vue --name vue-les-creditreport src/components/LesCreditReport.vue",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
